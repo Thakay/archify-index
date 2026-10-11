@@ -10,7 +10,7 @@ window: a tab per diagram, number and arrow keys to switch, and one theme for al
 
 ![The index showing Archify's cache-miss sequence example, light theme](docs/index-light.png)
 
-**Live demo:** [thakay.github.io/archify-index](https://thakay.github.io/archify-index/), built
+**Live demo:** [archify-index.thakay.dev](https://archify-index.thakay.dev/), built
 from Archify's own example specs, one per diagram type.
 
 ## Use it

@@ -22,7 +22,8 @@ npx github:Thakay/archify-index docs/diagrams/
 ```
 
 That writes `docs/diagrams/index.html`. Open it in a browser; it works straight from disk. Run it
-again after adding a diagram and it replaces the index it wrote before.
+again after adding a diagram and it replaces the index it wrote before. To pin a release, name its
+tag: `npx github:Thakay/archify-index#v0.1.0`.
 
 You can also hand it Archify JSON specs. It delivers each one with Archify first, into the index's
 folder, then indexes the set:

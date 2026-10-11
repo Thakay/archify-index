@@ -1,0 +1,44 @@
+{
+  "name": "archify-index",
+  "version": "0.1.0",
+  "description": "Writes one index page for a set of Archify diagrams.",
+  "type": "module",
+  "bin": {
+    "archify-index": "./bin/archify-index.mjs"
+  },
+  "exports": "./src/build.mjs",
+  "files": [
+    "bin/",
+    "src/",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18.3"
+  },
+  "scripts": {
+    "test": "node --test test/artifact.test.mjs test/page.test.mjs test/paths.test.mjs test/build.test.mjs test/browser.test.mjs",
+    "test:unit": "node --test test/artifact.test.mjs test/page.test.mjs test/paths.test.mjs test/build.test.mjs",
+    "test:browser": "node --test test/browser.test.mjs",
+    "demo": "node scripts/build-demo.mjs",
+    "screenshots": "node scripts/screenshots.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thakay/archify-index.git"
+  },
+  "homepage": "https://github.com/Thakay/archify-index#readme",
+  "bugs": "https://github.com/Thakay/archify-index/issues",
+  "keywords": [
+    "archify",
+    "diagrams",
+    "architecture",
+    "index",
+    "static-site"
+  ],
+  "author": "Thakay",
+  "license": "MIT",
+  "devDependencies": {
+    "playwright-core": "1.62.0"
+  }
+}

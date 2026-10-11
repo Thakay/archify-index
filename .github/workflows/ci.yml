@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  unit:
+    name: Unit tests (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18, 20, 22, 24]
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm run test:unit
+
+  browser:
+    name: Browser and real Archify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Check out Archify v3.0.1
+        uses: actions/checkout@v7.0.1
+        with:
+          repository: tt-a1i/archify
+          ref: v3.0.1
+          path: archify-src
+          sparse-checkout: archify
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version: 22
+      - run: npm ci
+      - name: Every test, with Chrome required
+        run: npm test
+        env:
+          REQUIRE_CHROME: '1'
+          CHROME_PATH: /usr/bin/google-chrome
+          ARCHIFY_BIN: archify-src/archify/bin/archify.mjs
+      - name: The demo builds
+        run: npm run demo -- archify-src/archify/bin/archify.mjs

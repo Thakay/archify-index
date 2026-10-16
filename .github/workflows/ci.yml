@@ -23,15 +23,18 @@ jobs:
       - run: npm run test:unit
 
   browser:
-    name: Browser and real Archify
+    name: Browser and real Archify ${{ matrix.archify }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        archify: [v3.0.1, v3.1.0]
     steps:
       - uses: actions/checkout@v7.0.1
-      - name: Check out Archify v3.0.1
+      - name: Check out Archify ${{ matrix.archify }}
         uses: actions/checkout@v7.0.1
         with:
           repository: tt-a1i/archify
-          ref: v3.0.1
+          ref: ${{ matrix.archify }}
           path: archify-src
           sparse-checkout: archify
       - uses: actions/setup-node@v7.0.0
@@ -44,5 +47,7 @@ jobs:
           REQUIRE_CHROME: '1'
           CHROME_PATH: /usr/bin/google-chrome
           ARCHIFY_BIN: archify-src/archify/bin/archify.mjs
+      # The demo's specs are copies of the 3.0.1 examples; 3.1.0 wants lifecycle specs at version 3.
       - name: The demo builds
+        if: matrix.archify == 'v3.0.1'
         run: npm run demo -- archify-src/archify/bin/archify.mjs

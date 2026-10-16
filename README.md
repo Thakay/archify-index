@@ -113,10 +113,10 @@ const receipt = await buildIndex({ inputs: ['docs/diagrams/'], title: 'Payments'
 - Changing the theme reloads the diagrams, so each one returns to its starting view.
 - It is built for desktop reading, as Archify is. On a phone the tabs scroll and the diagram fills
   the rest.
-- Tested with Archify 3.0.1, on its five diagram types and spec versions 1 and 2. Archify's
-  development line adds five more types and more Viewer languages. Their pages are labelled from
-  the delivery receipt when it sits beside them, or from an English or Chinese description, and
-  are otherwise shown without a type.
+- Tested with Archify 3.0.1 and 3.1.0, on every example spec each release ships. That is five
+  diagram types and spec versions 1 and 2 with 3.0.1, and ten types and spec versions 1 to 3 with
+  3.1.0. The five types that 3.1.0 adds are labelled from the delivery receipt when it sits beside
+  their pages, or from an English or Chinese description, and are otherwise shown without a type.
 
 ## Develop
 
@@ -128,8 +128,8 @@ npm run demo -- /path/to/archify/bin/archify.mjs # builds the demo into site/
 ```
 
 A skipped browser test is reported as skipped. CI runs the unit tests on Node 18, 20, 22 and 24,
-and every test, with Chrome required, against Archify 3.0.1. The demo site is published only from
-a commit whose CI passed.
+and every test, with Chrome required, against Archify 3.0.1 and 3.1.0. The demo site is built with
+3.0.1 and published only from a commit whose CI passed.
 
 ## Credits
 

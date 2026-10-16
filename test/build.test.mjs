@@ -134,13 +134,15 @@ test('the command prints help, a receipt, and refusals with a non-zero exit', as
 
 test('renders real Archify specs when ARCHIFY_BIN names Archify', { skip: !process.env.ARCHIFY_BIN && 'set ARCHIFY_BIN to archify/bin/archify.mjs' }, async t => {
   const dir = await scratch(t);
-  const specs = fileURLToPath(new URL('../examples/specs/', import.meta.url));
+  // The examples that ship with the Archify under test, so each release gets specs it accepts.
+  const specs = path.resolve(path.dirname(process.env.ARCHIFY_BIN), '../examples');
   const names = (await readdir(specs)).filter(name => name.endsWith('.json'));
   const receipt = await buildIndex({
     inputs: names.map(name => path.join(specs, name)), out: path.join(dir, 'index.html'), archify: process.env.ARCHIFY_BIN,
   });
   assert.equal(receipt.diagrams.length, names.length);
-  assert.deepEqual(new Set(receipt.diagrams.map(d => d.type)), new Set(['architecture', 'workflow', 'sequence', 'dataflow', 'lifecycle']));
+  const types = await Promise.all(names.map(async name => JSON.parse(await readFile(path.join(specs, name), 'utf8')).diagram_type));
+  assert.deepEqual(receipt.diagrams.map(d => d.type).sort(), types.sort());
 });
 
 test('refuses, with a code and before writing anything, every input that would lose or replace a file', async t => {
